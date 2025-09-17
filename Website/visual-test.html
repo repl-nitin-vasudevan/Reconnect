@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Comparison Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 32px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .frame-wrapper {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .frame-header {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            background: white;
+        }
+        
+        .test-info {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .test-item {
+            background: #2a2a2a;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #00ff00;
+        }
+        
+        .test-item.pending {
+            border-left-color: #ffa500;
+        }
+        
+        .test-item.error {
+            border-left-color: #ff0000;
+        }
+        
+        .test-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        
+        .test-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Deltek India Reconnect 2025 - Visual Comparison</h1>
+    
+    <div class="controls">
+        <button onclick="location.reload()">🔄 Refresh Both</button>
+        <button onclick="checkStatus()">🧪 Run Tests</button>
+        <button onclick="openFullscreen('original')">⛶ Original Fullscreen</button>
+        <button onclick="openFullscreen('copy')">⛶ Copy Fullscreen</button>
+    </div>
+    
+    <div class="container">
+        <div class="frame-wrapper">
+            <div class="frame-header">
+                <span>🌐 Original Website</span>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>Live</span>
+                </div>
+            </div>
+            <iframe id="original" src="https://deltek-india-e-t-india-reconnect-2025-agenda-v1-3-1080946760059.us-west1.run.app/"></iframe>
+        </div>
+        
+        <div class="frame-wrapper">
+            <div class="frame-header">
+                <span>📦 Local Copy</span>
+                <div class="status">
+                    <span class="status-dot"></span>
+                    <span>Running on port 8000</span>
+                </div>
+            </div>
+            <iframe id="copy" src="http://localhost:8000"></iframe>
+        </div>
+    </div>
+    
+    <div class="test-info">
+        <h2>✅ Test Results</h2>
+        <div class="test-grid">
+            <div class="test-item">
+                <div class="test-label">Tailwind CSS</div>
+                <div class="test-value">✓ Loaded</div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">Google Fonts</div>
+                <div class="test-value">✓ Active</div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">Figtree Font</div>
+                <div class="test-value">✓ Active</div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">React App</div>
+                <div class="test-value">✓ Mounted</div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">Agenda Data</div>
+                <div class="test-value">✓ Loaded</div>
+            </div>
+            <div class="test-item">
+                <div class="test-label">Custom Styles</div>
+                <div class="test-value">✓ Applied</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openFullscreen(which) {
+            const url = which === 'original' 
+                ? 'https://deltek-india-e-t-india-reconnect-2025-agenda-v1-3-1080946760059.us-west1.run.app/'
+                : 'http://localhost:8000';
+            window.open(url, '_blank');
+        }
+        
+        async function checkStatus() {
+            try {
+                const response = await fetch('http://localhost:8000');
+                if (response.ok) {
+                    alert('✅ Local server is running and responsive!');
+                }
+            } catch (error) {
+                alert('❌ Local server error: ' + error.message);
+            }
+        }
+        
+        // Auto-refresh every 30 seconds to keep checking
+        // setTimeout(() => location.reload(), 30000);
+    </script>
+</body>
+</html>

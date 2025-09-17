@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Test Report</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .pass { background: #d4edda; }
+        .fail { background: #f8d7da; }
+        iframe { width: 100%; height: 600px; border: 2px solid #333; }
+    </style>
+</head>
+<body>
+    <h1>Website Test Report</h1>
+    <div id="results"></div>
+    
+    <h2>Local Copy Preview:</h2>
+    <iframe id="localFrame" src="http://localhost:8000"></iframe>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        async function runTests() {
+            const tests = [];
+            
+            // Test 1: Check if server is responding
+            try {
+                const response = await fetch('http://localhost:8000');
+                tests.push({
+                    name: 'Server Response',
+                    status: response.ok ? 'pass' : 'fail',
+                    details: `Status: ${response.status}`
+                });
+            } catch (e) {
+                tests.push({
+                    name: 'Server Response',
+                    status: 'fail',
+                    details: e.message
+                });
+            }
+            
+            // Test 2: Check JavaScript modules
+            const jsFiles = [
+                '/js/index.js',
+                '/js/App.js',
+                '/js/components/IndiaAgenda.js',
+                '/js/constants.js'
+            ];
+            
+            for (const file of jsFiles) {
+                try {
+                    const response = await fetch('http://localhost:8000' + file);
+                    tests.push({
+                        name: `JS Module: ${file}`,
+                        status: response.ok ? 'pass' : 'fail',
+                        details: `Status: ${response.status}`
+                    });
+                } catch (e) {
+                    tests.push({
+                        name: `JS Module: ${file}`,
+                        status: 'fail',
+                        details: e.message
+                    });
+                }
+            }
+            
+            // Test 3: Check CSS
+            try {
+                const response = await fetch('http://localhost:8000/css/google-fonts.css');
+                tests.push({
+                    name: 'CSS: Google Fonts',
+                    status: response.ok ? 'pass' : 'fail',
+                    details: `Status: ${response.status}`
+                });
+            } catch (e) {
+                tests.push({
+                    name: 'CSS: Google Fonts',
+                    status: 'fail',
+                    details: e.message
+                });
+            }
+            
+            // Display results
+            results.innerHTML = tests.map(test => `
+                <div class="test ${test.status}">
+                    <strong>${test.name}:</strong> ${test.status.toUpperCase()}
+                    <br><small>${test.details}</small>
+                </div>
+            `).join('');
+            
+            // Check iframe content
+            setTimeout(() => {
+                const iframe = document.getElementById('localFrame');
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const rootDiv = iframeDoc.getElementById('root');
+                    if (rootDiv && rootDiv.children.length > 0) {
+                        results.innerHTML += `
+                            <div class="test pass">
+                                <strong>React App Mounted:</strong> PASS
+                                <br><small>Root element has children</small>
+                            </div>
+                        `;
+                    } else {
+                        results.innerHTML += `
+                            <div class="test fail">
+                                <strong>React App Mounted:</strong> FAIL
+                                <br><small>Root element is empty</small>
+                            </div>
+                        `;
+                    }
+                } catch (e) {
+                    console.log('Cannot access iframe content due to CORS');
+                }
+            }, 3000);
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>

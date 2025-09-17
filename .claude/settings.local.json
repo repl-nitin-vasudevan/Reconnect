@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:deltek-india-e-t-summit-2025-agenda-v1-1-1080946760059.us-west1.run.app)",
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(rm:*)",
+      "Bash(chmod:*)",
+      "Bash(open index-offline.html)",
+      "WebFetch(domain:deltek-india-e-t-summit-2025-agenda-v1-2-1080946760059.us-west1.run.app)",
+      "Bash(grep:*)",
+      "Bash(./verify-v1-2.sh:*)",
+      "Bash(open \"/Users/nitin.vasudevan/Claude/Reconnect/index-v1-2-offline.html\")",
+      "Bash(open \"/Users/nitin.vasudevan/Claude/Reconnect/index-v1-2-exact.html\")",
+      "Bash(node:*)",
+      "WebFetch(domain:cdn.tailwindcss.com)",
+      "Bash(open:*)",
+      "Bash(sed:*)",
+      "Bash(pkill:*)",
+      "Bash(true)"
+    ],
+    "deny": []
+  }
+}

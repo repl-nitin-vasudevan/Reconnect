@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/nitin.vasudevan/Claude/Reconnect/**)",
+      "Read(//Users/nitin.vasudevan/Claude/**)",
+      "WebFetch(domain:deltek-india-e-t-india-reconnect-2025-agenda-v1-3-1080946760059.us-west1.run.app)",
+      "Bash(curl:*)",
+      "Bash(chmod:*)",
+      "Bash(python3:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
